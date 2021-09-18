@@ -1,0 +1,48 @@
+Here is my Winter 2022 Data Science Intern Challenge :) (I'm Clara Grim)
+
+Question 1: Given some sample data, write a program to answer the following: 
+
+On Shopify, we have exactly 100 sneaker shops, and each of these shops sells only one model of shoe. We want to do some analysis of the average order value (AOV). When we look at orders data over a 30 day window, we naively calculate an AOV of $3145.13. Given that we know these shops are selling sneakers, a relatively affordable item, something seems wrong with our analysis. 
+
+a.	Think about what could be going wrong with our calculation. Think about a better way to evaluate this data. 
+    >It is possible (and in fact, true) that there could be outliers in this data set (i.e. some orders that are way bigger and skew the average). Upon inspecting the data it is clear that there are a few huge orders (perhaps a shoe store ordering their inventory) that make the AOV seem higher than it should be. A better way to evaluate this data would account for or remove outliers so the user gets a better sense of what the typical value of an order is.
+b.	What metric would you report for this dataset?
+    >I came up with two ways to combat this. First, I simply calculated the median of the order amounts instead of the average. Second, I used the interquartile range method of removing outliers, and then performed an average of that data.
+c.	What is its value?
+    >The value of the simple median of the order amounts is $284.0. The value of the average after removing outliers is $293.71. Both of these values seem reasonable knowing the typical price of shoes.
+
+
+Question 2: For this question you’ll need to use SQL. Follow this link to access the data set required for the challenge. Please use queries to answer the following questions. Paste your queries along with your final numerical answers below.
+
+a.	How many orders were shipped by Speedy Express in total?
+SELECT ShipperID FROM [Shippers]
+WHERE ShipperName='Speedy Express'
+
+SELECT COUNT(ShipperID)
+FROM [Orders]
+WHERE ShipperID='1';
+
+54 orders were shipped by Speedy Express in total. By referring to the Shippers table and using the where function, I was able to determine that their Shipper ID was 1. I then used the count function to count the orders that had 1 in the Shipper ID column to answer the question.
+
+b.	What is the last name of the employee with the most orders?
+SELECT COUNT(OrderID), EmployeeID
+FROM Orders
+GROUP BY EmployeeID
+ORDER BY COUNT(OrderID) DESC;
+
+SELECT LastName FROM 'Employees'
+WHERE EmployeeID='4'
+
+Peacock is the last name of the employee with the most orders. I first utilized the count and group functions to count the number of orders (measured by OrderID) fulfilled by each employee (at this point distinguished by EmployeeID). Once I knew that the employee with the most orders had the ID ‘4’, I used the where function to determine that employee’s last name.
+
+c.	What product was ordered the most by customers in Germany?
+SELECT COUNT (o.OrderID), d.ProductID
+FROM Customers AS c, Orders AS o, OrderDetails AS d
+WHERE c.Country='Germany' AND c.CustomerID=o.CustomerID AND o.OrderID=d.OrderID
+GROUP BY ProductID
+ORDER BY COUNT(o.OrderID) DESC;
+
+SELECT ProductName FROM [Products]
+WHERE ProductID='31'
+
+Gorgonzola Telino was the product most ordered by customers in Germany. To answer this question, I began by using the count and where functions to gather the order and product IDs for all orders placed by customers in Germany. This required me to match orders across the Customers, Orders, and OrderDetails tables which I achieved via using AND in the where function. I then sorted the German orders by ProductID, and counted the number of orders (by OrderID) attached to each ProductID, and sorted the resulting counts in descending order in order to determine the ProductID with the most orders (31). I think used select/where to find the name of the most-ordered product.
