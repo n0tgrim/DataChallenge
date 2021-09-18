@@ -46,3 +46,14 @@ SELECT ProductName FROM [Products]
 WHERE ProductID='31'
 
 Gorgonzola Telino was the product most ordered by customers in Germany. To answer this question, I began by using the count and where functions to gather the order and product IDs for all orders placed by customers in Germany. This required me to match orders across the Customers, Orders, and OrderDetails tables which I achieved via using AND in the where function. I then sorted the German orders by ProductID, and counted the number of orders (by OrderID) attached to each ProductID, and sorted the resulting counts in descending order in order to determine the ProductID with the most orders (31). I think used select/where to find the name of the most-ordered product.
+
+SELECT SUM (d.Quantity), d.ProductID
+FROM Customers AS c, Orders AS o, OrderDetails AS d
+WHERE c.Country='Germany' AND c.CustomerID=o.CustomerID AND o.OrderID=d.OrderID
+GROUP BY ProductID
+ORDER BY SUM (d.Quantity) DESC;
+
+SELECT ProductName FROM [Products]
+WHERE ProductID='40'
+
+Boston Crab Meat
