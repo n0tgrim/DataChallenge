@@ -18,7 +18,7 @@ a.	How many orders were shipped by Speedy Express in total?
 SELECT ShipperID FROM [Shippers]
 WHERE ShipperName='Speedy Express'
 
-SELECT COUNT(ShipperID)
+SELECT COUNT(OrderID)
 FROM [Orders]
 WHERE ShipperID='1';
 
